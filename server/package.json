@@ -1,0 +1,32 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js --prefix client client",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^14.3.2",
+    "experss": "^0.0.1-security",
+    "google-auth-library": "^7.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.8",
+    "mongoose-findorcreate": "^3.0.0",
+    "multer": "^1.4.4",
+    "passport": "^0.5.2",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
+  }
+}

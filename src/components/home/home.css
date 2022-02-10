@@ -1,0 +1,46 @@
+.home-container {
+  width: 100%;
+  padding: 8% 0;
+  background-color: rgb(196, 226, 255);
+}
+.home-container h1 {
+  font-size: 1em;
+  justify-content: left;
+  font-weight: lighter;
+}
+.home-container h2 {
+  font-size: 4em;
+  font-weight: bold;
+  margin: 0 0 20px;
+}
+.home-container .btn {
+  color: black;
+  background-color: white;
+  font: lighter;
+  border: 1px solid black;
+}
+.home-content {
+  justify-content: space-between;
+
+  height: 70%;
+  width: 100%;
+  padding-left: 5%;
+  background-color: rgb(196, 226, 255);
+  border-bottom: 1px solid black;
+}
+.home-info {
+  gap: 40px;
+  padding: 2%;
+  background-color: white;
+  z-index: -10;
+}
+.home-info h1 {
+  font-size: 1.5rem;
+}
+.home-info h2 {
+  font-size: 1rem;
+}
+
+.home-info h3 {
+  font-size: 0.7rem;
+}

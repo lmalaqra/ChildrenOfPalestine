@@ -1,0 +1,70 @@
+// require("dotenv").config();
+// require("./config/database").connect();
+// const cors = require("cors");
+// const express = require("express");
+// const User = require("./model/user");
+// const bcrypt = require("bcryptjs");
+// const jwt = require("jsonwebtoken");
+// const auth = require("./middleware/auth");
+// const cookieParser = require("cookie-parser");
+
+// const app = express();
+// app.use(cookieParser());
+// app.use(express.json());
+// app.use(cors());
+
+// app.post("/register", async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+
+//     const oldUser = await User.findOne({ email });
+
+//     if (oldUser) {
+//       return res.status(400).send("email already exists,please Login");
+//     }
+//     const encyptedPassword = await bcrypt.hash(password, 10);
+
+//     const user = User.create({
+//       email: email.toLowerCase(),
+//       password: encyptedPassword,
+//     });
+//     const token = jwt.sign(
+//       { user_id: user._id, email },
+//       process.env.TOKEN_KEY,
+//       {
+//         expiresIn: "2h",
+//       }
+//     );
+//     // save user token
+//     user.token = token;
+
+//     // return new user
+//     res.cookie("token", user.token, { httpOnly: true });
+
+//     // res.status(201).json(user);
+//     res.status(201).send("successfully registerd ");
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
+
+// app.get("/verify", auth, (req, res) => {
+//   console.log(req.cookies.token);
+//   res.status(200).send("Welcome 🙌 ");
+// });
+
+// module.exports = app;
+const { email, password } = req.body;
+const user = await User.findOne({ email });
+console.log(email, password);
+if (!user) res.json({ message: "please signup" });
+const valid = bcrypt.compare(password, user.password);
+if (!valid) res.json({ message: "wrong Password" });
+const body = { _id: user._id, email: user.email };
+const token = jwt.sign({ user: body }, process.env.TOKEN_KEY);
+
+res.cookie("token", token, { httpOnly: true });
+res.json({
+  message: "login succesfull",
+  token: token,
+});
