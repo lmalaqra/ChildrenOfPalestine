@@ -26,6 +26,7 @@ const Facebook = () => {
         .then((res) => {
           localStorage.setItem("id", JSON.stringify(res.data.id));
           localStorage.setItem("loggedIn", JSON.stringify(true));
+          console.log(res.data);
           setUser((prev) => {
             return {
               ...prev,

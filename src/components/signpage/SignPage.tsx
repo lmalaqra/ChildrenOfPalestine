@@ -6,10 +6,11 @@ import axios from "axios";
 import { userContext } from "../../userContext";
 import { GoogleLogin } from "react-google-login";
 import * as queryString from "query-string";
+import { useNavigate } from "react-router";
 const stringifiedParams = queryString.stringify({
     client_id: "237085085289850",
     redirect_uri: "http://localhost:3000/api/facebook",
-    scope: ["email"], // comma seperated string
+    scope: ["email","public_profile"], // comma seperated string
     response_type: "code",
     auth_type: "rerequest",
     display: "popup",
@@ -23,8 +24,15 @@ const stringifiedParams = queryString.stringify({
 
 const SignPage:React.FC<any>=():JSX.Element=>{
 
+
+
+
 const {width,height}= useWindowDimensions();
 const { user, setUser } = useContext(userContext);
+const navigate=useNavigate();
+
+
+
 
 const onGoogleSuccess = async (response:any) => {
   const res = await axios.post("api/google", response);
@@ -37,6 +45,8 @@ const onGoogleSuccess = async (response:any) => {
       id: res.data.id,
     };
   });
+  navigate('/');
+
 };
 
 const onGoogleFailure = () => {};
@@ -65,7 +75,7 @@ return<div style={{height:`${height}px`}}   className ="page-container">
 
     <div className="circle">OR</div>
 </div>
-
+<a href="https://www.googleapis.com/auth/user.gender.read">onothergoogle</a>
 <div
       style={{
         display: "flex",
@@ -84,6 +94,7 @@ return<div style={{height:`${height}px`}}   className ="page-container">
           onSuccess={onGoogleSuccess}
           onFailure={onGoogleFailure}
           className="google-login-button"
+          scope={"https://www.googleapis.com/auth/user.birthday.read"}
         />
       )}
       <h1>Facebook Auth</h1>

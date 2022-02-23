@@ -1,4 +1,6 @@
+const { google } = require("googleapis");
 const express = require("express");
+
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const User = require("../model/user");
@@ -16,7 +18,14 @@ async function getFacebookUserData(access_token) {
     url: "https://graph.facebook.com/me",
     method: "get",
     params: {
-      fields: ["id", "email", "first_name", "last_name"].join(","),
+      fields: [
+        "id",
+        "email",
+        "first_name",
+        "last_name",
+        "picture",
+        "gender",
+      ].join(","),
       access_token: access_token,
     },
   });
@@ -73,17 +82,29 @@ router.patch("/signup", async (req, res, next) => {
     res.status(200).json({ message: "succesfully patched", user: doc });
   });
 });
-
+//gooogle auth
 router.post("/api/google", async (req, res) => {
-  const { tokenId } = req.body;
+  const { tokenId, accessToken } = req.body;
   const ticket = await Client.verifyIdToken({
     idToken: tokenId,
     audience: process.env.GOOGLE_CLIENT_ID,
   });
   const { email, name, picture } = ticket.getPayload();
+  const { OAuth2 } = google.auth;
+  const oauth2Client = new OAuth2();
+  oauth2Client.setCredentials({ access_token: accessToken });
+
+  const peopleAPI = google.people({
+    version: "v1",
+    auth: oauth2Client,
+  });
+  const { data } = await peopleAPI.people.get({
+    resourceName: "people/me",
+    personFields: "genders",
+  });
+  console.log(data);
 
   let newUser = await User.findOne({ email: email });
-  console.log(email, name, picture);
 
   if (!newUser) {
     newUser = new User({ email, name, picture });
@@ -103,15 +124,17 @@ router.post("/api/google", async (req, res) => {
 //   const token = await getAccessTokenFromCode(req.body.code);
 //   console.log(token);
 // });
+
+//facebook auth
 router.post("/facebook/auth", async (req, res) => {
-  const { email, first_name, last_name } = await getFacebookUserData(
+  const { email, first_name, last_name, picture } = await getFacebookUserData(
     req.body.token
   );
-
+  console.log(picture.data.url);
   let user = await User.findOne({ email });
   const name = first_name + last_name;
   if (!user) {
-    user = await User.create({ email, name });
+    user = await User.create({ email, name, picture: picture.data.url });
   }
   const body = { _id: user._id, email: user.email };
   const token = jwt.sign({ user: body }, process.env.TOKEN_KEY);
@@ -119,5 +142,4 @@ router.post("/facebook/auth", async (req, res) => {
   res.json({ id: user._id });
 });
 
-router.get("/test", (req, res) => {});
 module.exports = router;

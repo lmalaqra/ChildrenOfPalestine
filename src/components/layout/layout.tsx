@@ -18,7 +18,8 @@ user:{loggedIn:boolean,id:String}
 
 
     return <div style={{margin:"0"}}>
-    <NavBar user={user} navState={navState}/>
+        {user.loggedIn?"":<NavBar user={user} navState={navState}/>}
+    
     </div>
 
 

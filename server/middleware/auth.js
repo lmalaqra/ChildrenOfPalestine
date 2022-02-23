@@ -58,7 +58,7 @@ passport.use(
 var cookieExtractor = function (req) {
   var token = null;
   if (req && req.cookies) {
-    token = req.cookies["token"];
+    token = req.cookies["token"] || req.cookies.token;
   }
   return token;
 };
@@ -88,8 +88,8 @@ passport.use(
       secretOrKey: process.env.TOKEN_KEY,
       jwtFromRequest: cookieExtractor,
     },
-    async (token, done) => {
-      UserModel.findOne({ id: token.id }, (err, user) => {
+    async (jwt_payload, done) => {
+      UserModel.findOne({ id: jwt_payload._id }, (err, user) => {
         if (err) {
           return done(err, false);
         }

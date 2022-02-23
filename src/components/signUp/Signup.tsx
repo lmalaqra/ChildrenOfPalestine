@@ -60,7 +60,7 @@ const navigate=useNavigate();
                   });
                   localStorage.setItem("loggedIn","true" );
                   localStorage.setItem("id",JSON.stringify(response.data.user._id));
-setUser(()=>{
+setUser(()=>{ 
     return{loggedIn:true,id:response.data.user._id}
 });                      
             back(e,1);

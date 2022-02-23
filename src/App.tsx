@@ -5,7 +5,8 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
+  Link,
+ Navigate
 } from "react-router-dom";
 
   import Home from "./components/home/Home";
@@ -16,6 +17,7 @@ import SignPage from "./components/signpage/SignPage";
 import useWindowDimensions from "./services/service";
 import { userContext } from "./userContext";
 import Facebook from "./components/facebook/Facebook";
+import HomeMe from "./components/homeMe/Home_Me";
  
 type user={
   loggedIn:boolean,
@@ -29,12 +31,12 @@ const App:React.FC=():ReactElement=> {
   })
   useEffect(()=>{
     const log=JSON.parse(localStorage.getItem('loggedIn'));
-    const userId=JSON.parse(localStorage.getItem('id'));
+    const userId=localStorage.getItem('id');
 console.log(user);
 
     if(!log || !userId)return;
     setUser(prev=>{
-      return{...prev,loggedIn:log,id:userId}
+      return{...prev,loggedIn:log,id:JSON.parse(userId)}
     })
     
 
@@ -49,10 +51,10 @@ const{height}=useWindowDimensions();
   <userContext.Provider value={{user:user,setUser:setUser}}>
  <Layout user={user} navState={navState}/>
  <Routes>
-  <Route  path="/" element={<Home onChange={(value:boolean)=>{setNavState(prev=>value)}}/>}/>
+  <Route  path="/*" element={user.loggedIn?<HomeMe user={user} />:<Home onChange={(value:boolean)=>{setNavState(prev=>value)}}/>}/>
   <Route  path="/blog" element={<Blog/>}/>
   <Route  path="/feed" element={<Feed/>}/>
-  <Route  path="/signup" element={<SignPage height={height}/>}/>
+  <Route  path="/signup" element={user.loggedIn?<Navigate to="/" />: <SignPage height={height}/>}/>
   <Route path="/api/facebook" element={<Facebook/>}/>
 
 

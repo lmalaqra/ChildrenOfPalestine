@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -25,3 +26,13 @@ export default function useWindowDimensions() {
 
   return windowDimensions;
 }
+
+export const cloudinaryUpload = async (fileToUpload) => {
+  const data = await axios
+    .post("/cloudinary-upload", fileToUpload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  console.log(data);
+
+  return data;
+};

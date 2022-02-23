@@ -1,0 +1,25 @@
+.controllers {
+  width: 100px;
+  border-radius: 10px;
+  display: flex;
+  gap: 10px;
+  background-color: black;
+  position: absolute;
+}
+.con-btn {
+  background-color: transparent;
+  width: 50%;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.tail {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 5px;
+  bottom: -3px;
+  transform: rotate(-45deg);
+  z-index: -100;
+  background-color: black;
+}

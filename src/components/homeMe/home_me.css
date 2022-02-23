@@ -1,0 +1,42 @@
+.home-me-container {
+  width: 100%;
+  display: flex;
+}
+
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  padding: 1%;
+  text-align: center;
+  gap: 70px;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.me-content {
+  flex: 1 0 68%;
+  padding: 3% 5%;
+}
+.me-upgrade {
+  flex: 0 1 20%;
+}
+.me-logo {
+  flex: 0 0 10%;
+  padding-top: 15px;
+}
+.me-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+}
+.me-write {
+  flex: 0 1 10%;
+  display: flex;
+  width: 20px;
+  margin: 0 auto;
+  align-items: center;
+
+  padding: 10px 0;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
