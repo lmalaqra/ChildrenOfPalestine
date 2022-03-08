@@ -3,14 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Write(props) {
   return (
-    <div
-      onClick={(e) => {
-        console.log(e.currentTarget.title);
-        props.handleClick(e.currentTarget.title);
-      }}
-      title="Write"
-      class="img-container"
-    >
+    <div title="Write" class="img-container">
       <Link title="Write" to="/me/write">
         <div title="Write" class="img-icon">
           <svg

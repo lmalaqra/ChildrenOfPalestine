@@ -1,7 +1,7 @@
 const passport = require("passport");
 
 const localStrategy = require("passport-local").Strategy;
-const UserModel = require("../model/user");
+const {UserModel} = require("../model/user");
 const bcrypt = require("bcryptjs");
 const JWTstrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
@@ -55,14 +55,6 @@ passport.use(
   )
 );
 
-var cookieExtractor = function (req) {
-  var token = null;
-  if (req && req.cookies) {
-    token = req.cookies["token"] || req.cookies.token;
-  }
-  return token;
-};
-
 passport.use(
   new GoogleStrategy(
     {
@@ -81,7 +73,13 @@ passport.use(
     }
   )
 );
-
+var cookieExtractor = function (req) {
+  var token = null;
+  if (req && req.cookies) {
+    token = req.cookies["token"] || req.cookies.token;
+  }
+  return token;
+};
 passport.use(
   new JWTstrategy(
     {
@@ -89,7 +87,7 @@ passport.use(
       jwtFromRequest: cookieExtractor,
     },
     async (jwt_payload, done) => {
-      UserModel.findOne({ id: jwt_payload._id }, (err, user) => {
+      UserModel.findOne({ _id: jwt_payload.user._id }, (err, user) => {
         if (err) {
           return done(err, false);
         }

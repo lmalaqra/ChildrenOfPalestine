@@ -15,13 +15,22 @@ import Notification from "../notification/Notification";
 import List from "../list/List";
 import Story from "../stories/Story";
 import Profile from "../profile/Profile";
+import Perview from "../editor/Perview";
 
 const HomeMe = (props) => {
+  const [perview, setPerview] = useState({ title: "", content: "" });
   const [seleceted, setSelected] = useState("home");
   const { width, height } = useWindowDimensions();
   useEffect(() => {
-    console.log(seleceted);
-  }, [seleceted]);
+    const url = window.location.href;
+    if (url === "http://localhost:3000/") {
+      setSelected("home");
+      return;
+    }
+    const currentUrl = url.replace("http://localhost:3000/me/", "");
+    setSelected(currentUrl);
+    console.log(perview);
+  }, [perview]);
 
   const handleSelection = (title) => {
     setSelected(title);
@@ -53,14 +62,26 @@ const HomeMe = (props) => {
         <Profile />
       </div>
       <div className="me-content">
+        <h1>{perview.title}</h1>
         <Routes>
           <Route path="/" element={<HomeContent />} />
           <Route path="/me/notification" element={<Notification />} />
           <Route path="/me/lists" element={<List />} />
-          <Route path="/me/stoies" element={<Story />} />
+          <Route
+            path="/me/stories"
+            onLeave={() => {
+              console.log("you Left");
+            }}
+            element={<Story onChange={(value) => {}} />}
+          />
+          <Route
+            path="/me/stories/article-perview"
+            element={
+              <Perview title={perview.title} content={perview.content} />
+            }
+          />
         </Routes>
       </div>
-      <div className="me-upgrade"></div>
     </div>
   );
 };

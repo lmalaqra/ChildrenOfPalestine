@@ -3,11 +3,10 @@ const express = require("express");
 
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const User = require("../model/user");
+const { UserModel } = require("../model/user");
 require("../middleware/auth");
 const JWT = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
-const user = require("../model/user");
 const axios = require("axios");
 
 const router = express.Router();
@@ -40,8 +39,7 @@ router.post(
     const body = { _id: req.user._id, email: req.user.email };
     const token = jwt.sign({ user: body }, process.env.TOKEN_KEY);
 
-    res.cookie("token", token, { httpOnly: true });
-    res.json({
+    res.cookie("token", token, { httpOnly: true }).json({
       message: "Signup successful",
       user: req.user,
     });
@@ -77,10 +75,14 @@ router.patch("/signup", async (req, res, next) => {
 
   // const user = await User.findOne({ _id: decoded.user._id });
   // console.log(user);
-  User.findOneAndUpdate({ _id: decoded.user._id }, req.body, (err, doc) => {
-    if (err) res.send("wrong Id");
-    res.status(200).json({ message: "succesfully patched", user: doc });
-  });
+  UserModel.findOneAndUpdate(
+    { _id: decoded.user._id },
+    req.body,
+    (err, doc) => {
+      if (err) res.send("wrong Id");
+      res.status(200).json({ message: "succesfully patched", user: doc });
+    }
+  );
 });
 //gooogle auth
 router.post("/api/google", async (req, res) => {
@@ -104,10 +106,10 @@ router.post("/api/google", async (req, res) => {
   });
   console.log(data);
 
-  let newUser = await User.findOne({ email: email });
+  let newUser = await UserModel.findOne({ email: email });
 
   if (!newUser) {
-    newUser = new User({ email, name, picture });
+    newUser = new UserModel({ email, name, picture });
 
     await newUser.save();
 
@@ -131,10 +133,10 @@ router.post("/facebook/auth", async (req, res) => {
     req.body.token
   );
   console.log(picture.data.url);
-  let user = await User.findOne({ email });
+  let user = await UserModel.findOne({ email });
   const name = first_name + last_name;
   if (!user) {
-    user = await User.create({ email, name, picture: picture.data.url });
+    user = await UserModel.create({ email, name, picture: picture.data.url });
   }
   const body = { _id: user._id, email: user.email };
   const token = jwt.sign({ user: body }, process.env.TOKEN_KEY);

@@ -745,6 +745,47 @@
   animation-delay: -1s;
 }
 
+.circle-spinner {
+  width: 15px;
+  height: 15px;
+  border-radius: 10px;
+  border: 2px dashed black;
+  animation: rotate 1.5s infinite cubic-bezier(0, 0.52, 0.45, 1) 0.3s;
+  margin-left: 15px;
+  display: inline-block;
+}
+.spinner-container {
+  width: fit-content;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 1% 2%;
+  border-radius: 10px;
+  background-color: rgb(255, 223, 119);
+  opacity: 0.8;
+  font-size: 0.2em;
+  animation: elevate 1s forwards;
+  z-index: -1;
+}
+
+@keyframes elevate {
+  0% {
+    top: 0px;
+  }
+
+  100% {
+    top: -40px;
+  }
+}
+@keyframes rotate {
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(-180deg);
+  }
+}
+
 @keyframes sk-wander {
   0% {
     transform: rotate(0deg);

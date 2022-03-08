@@ -22,7 +22,7 @@ export default function Story(props) {
                   width="50"
                   height="50"
                   rx="5.58"
-                  fill={props.seleceted === "story" ? "black" : "white"}
+                  fill={props.seleceted === "stories" ? "black" : "white"}
                   stroke="#000"
                   stroke-linecap="round"
                   stroke-miterlimit="10"
@@ -33,7 +33,7 @@ export default function Story(props) {
                   x2="34.77"
                   y2="10.09"
                   fill="none"
-                  stroke={props.seleceted === "story" ? "white" : "black"}
+                  stroke={props.seleceted === "stories" ? "white" : "black"}
                   stroke-linecap="round"
                   stroke-miterlimit="10"
                 />
@@ -43,7 +43,7 @@ export default function Story(props) {
                   x2="42.5"
                   y2="23.5"
                   fill="none"
-                  stroke={props.seleceted === "story" ? "white" : "black"}
+                  stroke={props.seleceted === "stories" ? "white" : "black"}
                   stroke-linecap="round"
                   stroke-miterlimit="10"
                 />
@@ -53,7 +53,7 @@ export default function Story(props) {
                   x2="34.77"
                   y2="35.32"
                   fill="none"
-                  stroke={props.seleceted === "story" ? "white" : "black"}
+                  stroke={props.seleceted === "stories" ? "white" : "black"}
                   stroke-linecap="round"
                   stroke-miterlimit="10"
                 />

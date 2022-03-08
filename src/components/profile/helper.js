@@ -18,13 +18,12 @@ export const useData = () => {
     setmounted(true);
     console.log("this is fired");
 
-    if (!mounted) return;
     const fetchData = async () => {
       try {
         console.log("this is working");
         setIsLoading(true);
         const fetchedData = await axios
-          .get("profile")
+          .get("/profile")
           .then((res) => res.data.user)
           .catch((e) => {
             console.log(e);
@@ -44,6 +43,7 @@ export const useData = () => {
         if (e) setisError({ error: true, message: e });
       }
     };
+
     fetchData();
 
     return () => {

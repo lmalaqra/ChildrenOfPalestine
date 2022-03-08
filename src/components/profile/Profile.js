@@ -20,7 +20,8 @@ const Profile = (props) => {
               width: "30px",
               height: "30px",
               borderRadius: "15px",
-              backgroundPosition: "center",
+              backgroundPosition: "center top",
+              backgroundSize: "cover ",
             }}
           ></div>
         </div>

@@ -1,5 +1,21 @@
+.editor-container {
+  width: 100%;
+  background-color: white;
+  position: relative;
+  border-top: 1px dashed rgba(0, 0, 0, 0.3);
+}
+
+input[name="title"] {
+  border: none;
+  display: block;
+  width: 50%;
+}
+input[name="title"]:focus {
+  border: none;
+  outline: 0px solid transparent;
+}
 .controllers {
-  width: 100px;
+  width: 40%;
   border-radius: 10px;
   display: flex;
   gap: 10px;
@@ -8,7 +24,8 @@
 }
 .con-btn {
   background-color: transparent;
-  width: 50%;
+
+  width: auto;
   color: white;
   border: none;
   cursor: pointer;
@@ -20,6 +37,106 @@
   right: 5px;
   bottom: -3px;
   transform: rotate(-45deg);
-  z-index: -100;
+  z-index: -1;
   background-color: black;
 }
+.link-btn {
+  position: relative;
+  display: inline-block;
+}
+.content-div {
+  height: 60vh;
+}
+
+.content-div a {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.content-div:focus {
+  outline: 0px solid transparent;
+}
+.link-box {
+  position: absolute;
+  width: 170px;
+  background-color: antiquewhite;
+  padding: 10px;
+  border-radius: 10px;
+  bottom: 40px;
+  left: -40px;
+}
+
+.link-input {
+  width: 150px;
+  margin: 0;
+  border: none;
+  box-shadow: none;
+}
+.quote {
+  padding: 10px 5px;
+  position: relative;
+  background-color: transparent;
+  border-left: 3px solid grey;
+  border-radius: 5px;
+  color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  font-weight: 100;
+  box-shadow: none;
+  filter: blur(0.1px);
+  -webkit-filter: blur(0.1px);
+}
+.quote::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
+  z-index: 150;
+  background-color: black;
+  opacity: 0.1;
+}
+
+figure {
+  width: 80%;
+  margin: 0 auto;
+  padding: 1%;
+  border: none;
+  outline: 0.5px solid transparent;
+  text-align: center;
+}
+.div-img {
+  width: 100%;
+}
+.s-con {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3%;
+  padding: 6%;
+  width: 100%;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: rgb(94, 93, 93);
+}
+figcaption {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 12px;
+}
+video {
+  display: flex;
+  justify-content: center;
+
+  text-align: center;
+  width: 80%;
+  height: auto;
+  margin: 4% auto;
+}
+
+video::-webkit-media-controls {
+  display: none;
+}
+
+/* Could Use thise as well for Individual Controls */

@@ -25,7 +25,7 @@ export default function List(props) {
                 />
                 <path
                   d="M46.44,5.42V49.63a.86.86,0,0,1-.86.87h-.8a.91.91,0,0,1-.54-.19L24,34a.87.87,0,0,0-1.08,0l-20.31,16a2,2,0,0,1-1.25.44h0a.87.87,0,0,1-.87-.87V5.42a.86.86,0,0,1,.87-.86H45.58A.85.85,0,0,1,46.44,5.42Z"
-                  fill={props.seleceted === "list" ? "black" : "white"}
+                  fill={props.seleceted === "lists" ? "black" : "white"}
                   stroke="#000"
                   stroke-linecap="round"
                   stroke-miterlimit="10"

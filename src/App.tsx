@@ -6,8 +6,11 @@ import {
   Routes,
   Route,
   Link,
- Navigate
+  Navigate
+
+ 
 } from "react-router-dom";
+import { useNavigate } from "react-router";
 
   import Home from "./components/home/Home";
 import Blog from "./components/blog/Blog";
@@ -18,6 +21,8 @@ import useWindowDimensions from "./services/service";
 import { userContext } from "./userContext";
 import Facebook from "./components/facebook/Facebook";
 import HomeMe from "./components/homeMe/Home_Me";
+import axios from 'axios';
+import Perview from "./components/editor/Perview";
  
 type user={
   loggedIn:boolean,
@@ -30,24 +35,39 @@ const App:React.FC=():ReactElement=> {
     id:""
   })
   useEffect(()=>{
-    const log=JSON.parse(localStorage.getItem('loggedIn'));
-    const userId=localStorage.getItem('id');
-console.log(user);
+axios.get('/verify').then(res=>{
 
-    if(!log || !userId)return;
-    setUser(prev=>{
-      return{...prev,loggedIn:log,id:JSON.parse(userId)}
-    })
+setUser({loggedIn:true,
+id:res.data.id});
+localStorage.setItem('loggedIn',JSON.stringify(true));
+localStorage.setItem('id',JSON.stringify(res.data.id));
+
+
+}).catch(e=>{
+
+
+  setUser({loggedIn:false,id:''});
+  
+  localStorage.setItem('loggedIn',JSON.stringify(false));
+localStorage.setItem('id',JSON.stringify(''));
+})
+
     
 
-  },[])
+  },[]);
+  useEffect(() => {
+  const loggedIn = JSON.parse(localStorage.getItem('loggedIn'));
+  if(!loggedIn)return;
+  setUser(prev=>{return{...prev,loggedIn}})
+  }, [])
+  
 const [navState,setNavState] = useState(false)
 
 const{height}=useWindowDimensions();
 
   return<>
 
-  <Router>
+  <Router >
   <userContext.Provider value={{user:user,setUser:setUser}}>
  <Layout user={user} navState={navState}/>
  <Routes>
