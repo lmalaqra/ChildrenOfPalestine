@@ -63,7 +63,6 @@ localStorage.setItem('id',JSON.stringify(''));
   
 const [navState,setNavState] = useState(false)
 
-const{height}=useWindowDimensions();
 
   return<>
 
@@ -74,7 +73,7 @@ const{height}=useWindowDimensions();
   <Route  path="/*" element={user.loggedIn?<HomeMe user={user} />:<Home onChange={(value:boolean)=>{setNavState(prev=>value)}}/>}/>
   <Route  path="/blog" element={<Blog/>}/>
   <Route  path="/feed" element={<Feed/>}/>
-  <Route  path="/signup" element={user.loggedIn?<Navigate to="/" />: <SignPage height={height}/>}/>
+  <Route  path="/signup" element={user.loggedIn?<Navigate to="/" />: <SignPage height={window.innerHeight}/>}/>
   <Route path="/api/facebook" element={<Facebook/>}/>
 
 

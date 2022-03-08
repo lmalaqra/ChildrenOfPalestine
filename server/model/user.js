@@ -2,8 +2,6 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const findOrCreate = require("mongoose-findorcreate");
 
-
-
 const UserSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: { type: String },
@@ -13,19 +11,17 @@ const UserSchema = new mongoose.Schema({
   picture: String,
 });
 
-const UserModel=mongoose.model("user", UserSchema);
-
-
+const UserModel = mongoose.model("user", UserSchema);
 
 const ArticleSchema = new mongoose.Schema({
-  user:{type:mongoose.Schema.Types.ObjectId,ref:'user'},
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
   title: String,
   content: String,
   images: [],
   status: String,
 });
 
-const ArticleModel=new mongoose.model('article',ArticleSchema);
+const ArticleModel = new mongoose.model("article", ArticleSchema);
 
 UserSchema.pre("save", async function (next) {
   const user = this;
@@ -42,4 +38,4 @@ UserSchema.methods.isValidPassword = async (password) => {
   return compare;
 };
 
-module.exports ={UserModel,ArticleModel} ;
+module.exports = { UserModel, ArticleModel };

@@ -45,6 +45,10 @@ export default function Story(props) {
 
     return () => {
       articleId.current = "";
+      axios
+        .delete("/articles/void")
+        .then((res) => console.log(res))
+        .catch((e) => console.log(e));
     };
   });
 

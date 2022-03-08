@@ -2,6 +2,7 @@ const {
   CreateNewDraftArticle,
   updateDraftImageArticle,
   updateDraftArticle,
+  deleteVoidArticles,
 } = require("./services");
 const express = require("express");
 const fileUploader = require("../../config/cloudinary.config");
@@ -59,6 +60,14 @@ router.patch("/articles", async (req, res) => {
     res.status(200).send("successfully saved article");
   } catch (e) {
     res.status(403).send("error article didn't update");
+  }
+});
+router.delete("/articles/void", async (req, res) => {
+  try {
+    await deleteVoidArticles(req.user._id);
+    res.status(200).send("sucessfully deleted void articles");
+  } catch (e) {
+    res.status(400).json({ msg: e });
   }
 });
 

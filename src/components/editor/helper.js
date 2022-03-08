@@ -136,3 +136,19 @@ export const insertNewTitle = (div) => {
   newTitle.appendChild(text);
   div.appendChild(newTitle);
 };
+
+export const changeSelection = (node) => {
+  const sel = window.getSelection();
+  if (sel) {
+    const range = sel.getRangeAt(0);
+    range.selectNode(node);
+    range.collapse(false);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  if (!sel) {
+    const range = document.createRange();
+    range.selectNode(node);
+  }
+};

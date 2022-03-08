@@ -20,7 +20,6 @@ import Perview from "../editor/Perview";
 const HomeMe = (props) => {
   const [perview, setPerview] = useState({ title: "", content: "" });
   const [seleceted, setSelected] = useState("home");
-  const { width, height } = useWindowDimensions();
   useEffect(() => {
     const url = window.location.href;
     if (url === "http://localhost:3000/") {
@@ -38,7 +37,7 @@ const HomeMe = (props) => {
 
   return (
     <div className="home-me-container">
-      <div style={{ height: `${height}px` }} className="side-bar">
+      <div style={{ height: `${window.innerHeight}px` }} className="side-bar">
         <div className="me-logo">
           <Image
             src="/assets/images/rageHook.svg"

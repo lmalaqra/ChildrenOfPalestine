@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 function getWindowDimensions() {
@@ -10,21 +10,18 @@ function getWindowDimensions() {
 }
 
 export default function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(
-    getWindowDimensions()
-  );
+  const dimensions = useRef(getWindowDimensions());
 
   useEffect(() => {
     function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-      console.log(getWindowDimensions());
+      dimensions.current = getWindowDimensions();
     }
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return windowDimensions;
+  return dimensions.current;
 }
 
 export const cloudinaryUpload = async (fileToUpload) => {

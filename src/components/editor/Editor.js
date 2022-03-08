@@ -8,6 +8,7 @@ import {
   removeLink,
   insertNewLine,
   insertNewTitle,
+  changeSelection,
 } from "./helper";
 import axios from "axios";
 import Spinner from "../loader/spinner";
@@ -46,10 +47,17 @@ const Editor = (props) => {
       const addedNodes = mutationsList[mutationsList.length - 1].addedNodes;
       const addedNode = addedNodes[addedNodes.length - 1];
 
-      if (addedNode) addedNode.scrollIntoView();
+      if (addedNode) {
+        addedNode.scrollIntoView();
+        changeSelection(addedNode);
+      }
       setIsSaving(true);
       axios
-        .patch("/articles", { title: title, content: ref.current.innerHTML })
+        .patch("/articles", {
+          title: title,
+          content: ref.current.innerHTML,
+          status: "draft",
+        })
         .then((res) => setIsSaving(false))
         .catch((e) => console.log(e));
     });
